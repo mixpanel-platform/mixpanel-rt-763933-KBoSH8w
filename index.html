@@ -10,7 +10,6 @@
     <h1>Hello, World!</h1>
     <script>
     
-    
     var params = {
       type:'general',
       limit:255,
@@ -21,14 +20,16 @@
     }
     
     var appOpenAppVersion = MP.api.segment('App Opened', params)
+    var adCompletedAppVersion = MP.api.segment('Ad Completed', params)
     
-    $.when(appOpenAppVersion).done(function(appOpen){
+    $.when(appOpenAppVersion, adCompletedAppVersion).done(function(appOpen, adCompleted){
         var lineChart = $('<div></div>').appendTo('body').MPChart({chartType: 'line', highchartsOptions: {
         tooltip: {
             backgroundColor: '#fffce7'  // Make tooltip background yellow
         }
     }});                                // Create a line chart
     lineChart.MPChart('setData', appOpen);
+    lineChart.MPChart('setData', adCompleted);
     })
     </script>
   </body>
